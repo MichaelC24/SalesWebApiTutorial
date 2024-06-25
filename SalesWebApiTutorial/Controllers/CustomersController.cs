@@ -42,11 +42,11 @@ namespace SalesWebApiTutorial.Controllers
         [HttpGet("{id}")] //this one is adding in the id onto the end of the http link http://localhost:5000/api/customers/5
         public async Task<ActionResult<Customer>> GetCustomer(int id) //gets rid of IEnumerable because it doesnt return a list
         {
-            var customer = await _context.Customers.FindAsync(id); 
+            var customer = await _context.Customers.FindAsync(id); // makes a variable the waits until the FindAsync returns data
 
-            if (customer == null)
+            if (customer == null) //checks to make sure customer contains data
             {
-                return NotFound();
+                return NotFound(); //returns error 404
             }
 
             return customer;
@@ -54,19 +54,20 @@ namespace SalesWebApiTutorial.Controllers
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")] 
-        public async Task<IActionResult> PutCustomer(int id, Customer customer) //updates customer
+
+        [HttpPut("{id}")] // tells c# that we are going to use the PutCustomer method
+        public async Task<IActionResult> PutCustomer(int id, Customer customer) //updates customer only uses IActionResult because this doesnt return any data.
         {
-            if (id != customer.Id)
+            if (id != customer.Id) //searchs for the customer
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(customer).State = EntityState.Modified; // forces whatever data is inputted into the customer varaible to appear as modified. 
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // trys to save the changes
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,22 +81,23 @@ namespace SalesWebApiTutorial.Controllers
                 }
             }
 
-            return NoContent();
+            return NoContent(); // if this is returned means the update worked 
         }
 
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)//add customer
+        [HttpPost] 
+        public async Task<ActionResult<Customer>> PostCustomer(Customer customer) //adds customer and since Customer is in the ActionResult it means it can return data 
         {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+            _context.Customers.Add(customer); //add is like staging int GIT
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            await _context.SaveChangesAsync(); //actually causes the database to change.
+
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer); //
         }
 
         // DELETE: api/Customers/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //this id has to match the one that the method takes in and the property in your list of properties.
         public async Task<IActionResult> DeleteCustomer(int id) //Deletes customer
         {
             var customer = await _context.Customers.FindAsync(id);
@@ -104,8 +106,8 @@ namespace SalesWebApiTutorial.Controllers
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            _context.Customers.Remove(customer); //add the delete the row you specfied with the customerId
+            await _context.SaveChangesAsync(); //actually deletes the row you specified with the customerId
 
             return NoContent();
         }
