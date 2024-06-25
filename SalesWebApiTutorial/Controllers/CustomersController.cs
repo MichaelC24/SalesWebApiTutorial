@@ -89,11 +89,11 @@ namespace SalesWebApiTutorial.Controllers
         [HttpPost] 
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer) //adds customer and since Customer is in the ActionResult it means it can return data 
         {
-            _context.Customers.Add(customer); //add is like staging int GIT
+            _context.Customers.Add(customer); //add is like staging in GIT
 
             await _context.SaveChangesAsync(); //actually causes the database to change.
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer); //
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer); //uses the GetCustomer method then passes in a id
         }
 
         // DELETE: api/Customers/5
