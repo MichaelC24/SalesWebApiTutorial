@@ -15,5 +15,10 @@ namespace SalesWebApiTutorial.Data
         }
 
         public DbSet<Customer> Customers { get; set; } = default!;
+        public DbSet<Order> Orders { get; set; } = default!;
+        public DbSet<Employee> Employees { get; set; } = default!;
+        public DbSet<Items> Items { get; set; } = default!;
+        public DbSet<Orderline> OrderLines { get; set; } = default!;
+
     }
 }

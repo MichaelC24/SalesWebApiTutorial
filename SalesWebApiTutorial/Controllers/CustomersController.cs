@@ -69,7 +69,7 @@ namespace SalesWebApiTutorial.Controllers
             {
                 await _context.SaveChangesAsync(); // trys to save the changes
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException) // stops 2 people from updating the same info at the same time similar to merge conflicts in Git.
             {
                 if (!CustomerExists(id))
                 {

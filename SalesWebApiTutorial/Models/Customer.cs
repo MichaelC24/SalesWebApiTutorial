@@ -20,5 +20,7 @@ namespace SalesWebApiTutorial.Models
         public bool Active { get; set; }
 
         
+
+        
     }
 }
