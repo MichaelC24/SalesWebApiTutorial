@@ -20,7 +20,9 @@ namespace SalesWebApiTutorial.Controllers
         {
             _context = context;
         }
-
+        
+        
+        
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
@@ -93,6 +95,7 @@ namespace SalesWebApiTutorial.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                
             }
             catch (DbUpdateConcurrencyException) // stops 2 people from updating the same info at the same time similar to merge conflicts in Git. 
             {
